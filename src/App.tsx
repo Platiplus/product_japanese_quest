@@ -13,7 +13,7 @@ const App: React.FC = () => {
           </Menu.Item>
         </Menu>
       </Header>
-      <Content style={{ padding: '16px 50px' }}>
+      <Content style={{ padding: '48px 48px' }}>
         <div className="site-layout-content" style={{ background: '#f5f5f5' }}>
           <Card>
             <SymbolsCard />

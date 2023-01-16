@@ -31,7 +31,7 @@ const SymbolsCard = () => {
       <HideWhenEmpty showEmpty={true} condition={!isListEmpty}>
         <Row justify={'center'}>
           <Row>
-            <h1 style={{ fontSize: '72px' }}>{randomSymbol?.symbol}</h1>
+            <h1 style={{ fontSize: '120px' }}>{randomSymbol?.symbol}</h1>
           </Row>
           <Input
             value={guess}
@@ -39,7 +39,7 @@ const SymbolsCard = () => {
           ></Input>
         </Row>
       </HideWhenEmpty>
-      <HideWhenEmpty condition={guess === randomSymbol?.romaji}>
+      <HideWhenEmpty condition={guess.toLowerCase() === randomSymbol?.romaji}>
         <Row justify={'center'} style={{ marginTop: '12px' }}>
           <Button onClick={() => onRightGuess(randomSymbol!)}>Manda outro!</Button>
         </Row>
