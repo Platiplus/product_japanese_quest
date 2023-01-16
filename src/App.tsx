@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Card, Layout, Menu } from 'antd'
+import { SymbolsCard } from './components/SymbolCard/SymbolsCard'
+const { Header, Content } = Layout
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Layout>
+      <Header>
+        <Menu theme={'dark'} mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu.Item title={'Hiragana'} key={'1'} className={'menu-platy'}>
+            Hiragana
+          </Menu.Item>
+        </Menu>
+      </Header>
+      <Content style={{ padding: '16px 50px' }}>
+        <div className="site-layout-content" style={{ background: '#f5f5f5' }}>
+          <Card>
+            <SymbolsCard />
+          </Card>
+        </div>
+      </Content>
+    </Layout>
+  )
 }
 
-export default App;
+export default App
