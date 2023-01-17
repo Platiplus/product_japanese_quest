@@ -25,7 +25,7 @@ const App: React.FC = () => {
             Hiragana
           </Menu.Item>
           <Menu.Item title={'CheatSheet'} key={'2'} onClick={() => setTabOpen('2')}>
-            CheatSheet
+            Glossário
           </Menu.Item>
         </Menu>
       </Header>

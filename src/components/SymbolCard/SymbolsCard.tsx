@@ -1,5 +1,5 @@
 import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Button, Col, Form, Input, Row } from 'antd'
 import { HiraganaDictionary } from '../../dictionary/hiragana'
 import { getRandomElement } from '../../utils/array.util'
@@ -11,6 +11,7 @@ const SymbolsCard = () => {
   const [guess, setGuess] = useState<string>('')
   const [availableSymbols, setAvailableSymbols] = useState<JapaneseSymbol[]>(HiraganaDictionary)
   const [randomSymbol, setRandomSymbol] = useState(getRandomElement(availableSymbols))
+  const [tries, setTries] = useState(0)
 
   const isListEmpty = availableSymbols.length === 0
 
@@ -19,6 +20,7 @@ const SymbolsCard = () => {
     const index = availableSymbols.findIndex((s) => s.symbol === symbol.symbol)
     list.splice(index, 1)
 
+    setTries(0)
     setAvailableSymbols(list)
     setGuess('')
     if (list.length !== 0) {
@@ -39,7 +41,10 @@ const SymbolsCard = () => {
               <Input
                 autoFocus={true}
                 value={guess}
-                onChange={(value: ChangeEvent<HTMLInputElement>) => setGuess(value.target.value)}
+                onChange={(value: ChangeEvent<HTMLInputElement>) => {
+                  setTries(tries + 1)
+                  setGuess(value.target.value)
+                }}
               ></Input>
             </Form.Item>
           </Col>
@@ -52,6 +57,12 @@ const SymbolsCard = () => {
               Manda outro!
             </Button>
           </Form.Item>
+        </Row>
+      </HideWhenEmpty>
+      <HideWhenEmpty condition={tries > 12}>
+        <Row style={{ textAlign: 'center', fontStyle: 'bold', color: 'red' }} justify={'center'}>
+          Você pode consultar o glossário se não lembrar, mas o preço é perder seu progresso e
+          voltar do zero!
         </Row>
       </HideWhenEmpty>
     </Form>
