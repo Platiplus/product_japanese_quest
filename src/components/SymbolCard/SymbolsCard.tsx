@@ -1,11 +1,13 @@
 import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
 import { ChangeEvent, useState } from 'react'
-import { Button, Input, Row } from 'antd'
+import { Button, Col, Form, Input, Row } from 'antd'
 import { HiraganaDictionary } from '../../dictionary/hiragana'
 import { getRandomElement } from '../../utils/array.util'
 import { HideWhenEmpty } from '../HideWhenEmpty/HideWhenEmpty'
+import { useForm } from 'antd/es/form/Form'
 
 const SymbolsCard = () => {
+  const [form] = useForm()
   const [guess, setGuess] = useState<string>('')
   const [availableSymbols, setAvailableSymbols] = useState<JapaneseSymbol[]>(HiraganaDictionary)
   const [randomSymbol, setRandomSymbol] = useState(getRandomElement(availableSymbols))
@@ -27,24 +29,30 @@ const SymbolsCard = () => {
   }
 
   return (
-    <>
-      <HideWhenEmpty showEmpty={true} condition={!isListEmpty}>
-        <Row justify={'center'}>
-          <Row>
+    <Form form={form}>
+      <Row justify={'center'}>
+        <HideWhenEmpty showEmpty={true} condition={!isListEmpty}>
+          <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1 style={{ fontSize: '120px' }}>{randomSymbol?.symbol}</h1>
-          </Row>
-          <Input
-            value={guess}
-            onChange={(value: ChangeEvent<HTMLInputElement>) => setGuess(value.target.value)}
-          ></Input>
-        </Row>
-      </HideWhenEmpty>
+            <Form.Item name={'guess'}>
+              <Input
+                value={guess}
+                onChange={(value: ChangeEvent<HTMLInputElement>) => setGuess(value.target.value)}
+              ></Input>
+            </Form.Item>
+          </Col>
+        </HideWhenEmpty>
+      </Row>
       <HideWhenEmpty condition={guess.toLowerCase() === randomSymbol?.romaji}>
         <Row justify={'center'} style={{ marginTop: '12px' }}>
-          <Button onClick={() => onRightGuess(randomSymbol!)}>Manda outro!</Button>
+          <Form.Item name={'submit'}>
+            <Button htmlType={'submit'} onClick={() => onRightGuess(randomSymbol!)}>
+              Manda outro!
+            </Button>
+          </Form.Item>
         </Row>
       </HideWhenEmpty>
-    </>
+    </Form>
   )
 }
 
