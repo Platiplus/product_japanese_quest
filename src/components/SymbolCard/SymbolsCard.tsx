@@ -1,5 +1,5 @@
 import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { Button, Col, Form, Input, Row } from 'antd'
 import { HiraganaDictionary } from '../../dictionary/hiragana'
 import { getRandomElement } from '../../utils/array.util'
@@ -26,6 +26,7 @@ const SymbolsCard = () => {
     } else {
       setRandomSymbol(undefined)
     }
+    form.resetFields()
   }
 
   return (
@@ -36,6 +37,7 @@ const SymbolsCard = () => {
             <h1 style={{ fontSize: '120px' }}>{randomSymbol?.symbol}</h1>
             <Form.Item name={'guess'}>
               <Input
+                autoFocus={true}
                 value={guess}
                 onChange={(value: ChangeEvent<HTMLInputElement>) => setGuess(value.target.value)}
               ></Input>
