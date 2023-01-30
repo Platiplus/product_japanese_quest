@@ -56,4 +56,12 @@ export const HiraganaDictionary: JapaneseSymbol[] = [
   { symbol: 'ぷ', romaji: 'pu' },
   { symbol: 'ぺ', romaji: 'pe' },
   { symbol: 'ぽ', romaji: 'po' },
+  { symbol: 'ま', romaji: 'ma' },
+  { symbol: 'み', romaji: 'mi' },
+  { symbol: 'む', romaji: 'mu' },
+  { symbol: 'め', romaji: 'me' },
+  { symbol: 'も', romaji: 'mo' },
+  { symbol: 'や', romaji: 'ya' },
+  { symbol: 'ゆ', romaji: 'yu' },
+  { symbol: 'よ', romaji: 'yo' },
 ]
