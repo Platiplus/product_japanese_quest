@@ -1,6 +1,6 @@
 import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
 import { ChangeEvent, useState } from 'react'
-import { Button, Col, Form, Input, Row } from 'antd'
+import { Button, Col, Form, Input, Row, Tabs } from 'antd'
 import { HiraganaDictionary } from '../../dictionary/hiragana'
 import { getRandomElement } from '../../utils/array.util'
 import { HideWhenEmpty } from '../HideWhenEmpty/HideWhenEmpty'
@@ -32,40 +32,53 @@ const SymbolsCard = () => {
   }
 
   return (
-    <Form form={form}>
-      <Row justify={'center'}>
-        <HideWhenEmpty showEmpty={true} condition={!isListEmpty}>
-          <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 style={{ fontSize: '120px' }}>{randomSymbol?.symbol}</h1>
-            <Form.Item name={'guess'}>
-              <Input
-                autoFocus={true}
-                value={guess}
-                onChange={(value: ChangeEvent<HTMLInputElement>) => {
-                  setTries(tries + 1)
-                  setGuess(value.target.value)
-                }}
-              ></Input>
-            </Form.Item>
-          </Col>
-        </HideWhenEmpty>
-      </Row>
-      <HideWhenEmpty condition={guess.toLowerCase() === randomSymbol?.romaji}>
-        <Row justify={'center'} style={{ marginTop: '12px' }}>
-          <Form.Item name={'submit'}>
-            <Button htmlType={'submit'} onClick={() => onRightGuess(randomSymbol!)}>
-              Manda outro!
-            </Button>
-          </Form.Item>
-        </Row>
-      </HideWhenEmpty>
-      <HideWhenEmpty condition={tries > 12}>
-        <Row style={{ textAlign: 'center', fontStyle: 'bold', color: 'red' }} justify={'center'}>
-          Você pode consultar o glossário se não lembrar, mas o preço é perder seu progresso e
-          voltar do zero!
-        </Row>
-      </HideWhenEmpty>
-    </Form>
+    <Tabs
+      items={[
+        {
+          label: 'Hiragana',
+          key: 'hiragana',
+          children: (
+            <Form form={form}>
+              <Row justify={'center'}>
+                <HideWhenEmpty showEmpty={true} condition={!isListEmpty}>
+                  <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <h1 style={{ fontSize: '120px' }}>{randomSymbol?.symbol}</h1>
+                    <Form.Item name={'guess'}>
+                      <Input
+                        autoFocus={true}
+                        value={guess}
+                        onChange={(value: ChangeEvent<HTMLInputElement>) => {
+                          setTries(tries + 1)
+                          setGuess(value.target.value)
+                        }}
+                      ></Input>
+                    </Form.Item>
+                  </Col>
+                </HideWhenEmpty>
+              </Row>
+              <HideWhenEmpty condition={guess.toLowerCase() === randomSymbol?.romaji}>
+                <Row justify={'center'} style={{ marginTop: '12px' }}>
+                  <Form.Item name={'submit'}>
+                    <Button htmlType={'submit'} onClick={() => onRightGuess(randomSymbol!)}>
+                      Manda outro!
+                    </Button>
+                  </Form.Item>
+                </Row>
+              </HideWhenEmpty>
+              <HideWhenEmpty condition={tries > 12}>
+                <Row
+                  style={{ textAlign: 'center', fontStyle: 'bold', color: 'red' }}
+                  justify={'center'}
+                >
+                  Você pode consultar o glossário se não lembrar, mas o preço é perder seu progresso
+                  e voltar do zero!
+                </Row>
+              </HideWhenEmpty>
+            </Form>
+          ),
+        },
+      ]}
+    />
   )
 }
 

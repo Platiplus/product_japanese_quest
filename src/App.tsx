@@ -27,8 +27,8 @@ const App: React.FC = () => {
     <Layout>
       <Header>
         <Menu theme={'dark'} mode="horizontal" defaultSelectedKeys={[tabOpen]}>
-          <Menu.Item title={'Hiragana'} key={'1'} onClick={() => setTabOpen('1')}>
-            Hiragana
+          <Menu.Item title={'Quiz'} key={'1'} onClick={() => setTabOpen('1')}>
+            Quiz
           </Menu.Item>
           <Menu.Item title={'CheatSheet'} key={'2'} onClick={() => setTabOpen('2')}>
             Glossário
