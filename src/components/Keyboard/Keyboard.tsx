@@ -78,6 +78,26 @@ const Keyboard = () => {
             )
           })}
         </Row>
+        <Row justify={'center'}>
+          {['ー', 'ゝ', 'ゞ', '、', '。'].map((symbol) => {
+            return (
+              <Card
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  margin: '8px',
+                  cursor: 'pointer',
+                }}
+                key={`${symbol}-1`}
+                onClick={() => onButtonClick(symbol)}
+              >
+                <Row>
+                  <span style={{ fontSize: '2em' }}>{symbol}</span>
+                </Row>
+              </Card>
+            )
+          })}
+        </Row>
       </>
     )
   }
