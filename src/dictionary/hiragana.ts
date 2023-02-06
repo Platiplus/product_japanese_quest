@@ -64,4 +64,24 @@ export const HiraganaDictionary: JapaneseSymbol[] = [
   { symbol: 'や', romaji: 'ya' },
   { symbol: 'ゆ', romaji: 'yu' },
   { symbol: 'よ', romaji: 'yo' },
+  { symbol: 'ら', romaji: 'ra' },
+  { symbol: 'り', romaji: 'ri' },
+  { symbol: 'る', romaji: 'ru' },
+  { symbol: 'れ', romaji: 're' },
+  { symbol: 'ろ', romaji: 'ro' },
+  { symbol: 'わ', romaji: 'wa' },
+  { symbol: 'を', romaji: 'wo' },
+  { symbol: 'ん', romaji: 'n' },
+]
+
+export const HSmallKanaDictionary: JapaneseSymbol[] = [
+  { symbol: 'ぁ', romaji: '=a' },
+  { symbol: 'ぃ', romaji: '=i' },
+  { symbol: 'ぅ', romaji: '=u' },
+  { symbol: 'ぇ', romaji: '=e' },
+  { symbol: 'ぉ', romaji: '=o' },
+  { symbol: 'っ', romaji: '=tsu' },
+  { symbol: 'ゃ', romaji: '=ya' },
+  { symbol: 'ゅ', romaji: '=yu' },
+  { symbol: 'ょ', romaji: '=yo' },
 ]
