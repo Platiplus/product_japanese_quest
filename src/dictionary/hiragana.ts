@@ -85,3 +85,11 @@ export const HSmallKanaDictionary: JapaneseSymbol[] = [
   { symbol: 'ゅ', romaji: '=yu' },
   { symbol: 'ょ', romaji: '=yo' },
 ]
+
+export const NVariantsDictionary: JapaneseSymbol[] = [
+  { symbol: 'な', romaji: 'んa' },
+  { symbol: 'に', romaji: 'んi' },
+  { symbol: 'ぬ', romaji: 'んu' },
+  { symbol: 'ね', romaji: 'んe' },
+  { symbol: 'の', romaji: 'んo' },
+]

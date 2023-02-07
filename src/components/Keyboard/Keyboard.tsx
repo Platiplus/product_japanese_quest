@@ -2,31 +2,35 @@ import { useState } from 'react'
 import TextArea from 'antd/es/input/TextArea'
 
 import { Card, Col, Row, Tabs } from 'antd'
-import { HiraganaDictionary, HSmallKanaDictionary } from '../../dictionary/hiragana'
-import { H_SMALL_KANA_KEYBOARD, HIRAGANA_KEYBOARD } from '../../utils/regex.util'
+import {
+  HiraganaDictionary,
+  HSmallKanaDictionary,
+  NVariantsDictionary,
+} from '../../dictionary/hiragana'
+import {
+  H_SMALL_KANA_KEYBOARD,
+  HIRAGANA_KEYBOARD,
+  N_VARIANT_KEYBOARD,
+} from '../../utils/regex.util'
+import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
 
 const Keyboard = () => {
   const [text, setText] = useState('')
 
+  const replaceSymbols = (dict: JapaneseSymbol[], romaji: string, text: string) => {
+    return text.replace(romaji, String(dict.find((s) => s.romaji == romaji.toLowerCase())?.symbol))
+  }
+
   const onTextAreaInput = ({ target }: any) => {
     let t = target.value
-    const hasSmallKanaSymbolEquivalent = H_SMALL_KANA_KEYBOARD.exec(target.value)
-
-    if (hasSmallKanaSymbolEquivalent) {
-      t = t.replace(
-        hasSmallKanaSymbolEquivalent[0],
-        HSmallKanaDictionary.find((s) => s.romaji.toLowerCase() == hasSmallKanaSymbolEquivalent[0])
-          ?.symbol,
-      )
-    }
-
+    const hasSmallEquivalent = H_SMALL_KANA_KEYBOARD.exec(target.value)
     const hasSymbolEquivalent = HIRAGANA_KEYBOARD.exec(target.value)
-    if (hasSymbolEquivalent) {
-      t = t.replace(
-        hasSymbolEquivalent[0],
-        HiraganaDictionary.find((s) => s.romaji.toLowerCase() == hasSymbolEquivalent[0])?.symbol,
-      )
-    }
+    const hasNVariantEquivalent = N_VARIANT_KEYBOARD.exec(target.value)
+
+    if (hasNVariantEquivalent) t = replaceSymbols(NVariantsDictionary, hasNVariantEquivalent[0], t)
+    if (hasSmallEquivalent) t = replaceSymbols(HSmallKanaDictionary, hasSmallEquivalent[0], t)
+    if (hasSymbolEquivalent) t = replaceSymbols(HiraganaDictionary, hasSymbolEquivalent[0], t)
+
     setText(t)
   }
 
