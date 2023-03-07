@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card, Layout, Menu } from 'antd'
-import { SymbolsCard } from './components/SymbolCard/SymbolsCard'
+import { Quizes } from './components/Quizes/Quizes'
 import { CheatSheet } from './components/CheatSheet/CheatSheet'
 import { Keyboard } from './components/Keyboard/Keyboard'
 
@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
   const renderTab = () => {
     if (tabOpen === '1') {
-      return <SymbolsCard />
+      return <Quizes />
     }
 
     if (tabOpen === '2') {
@@ -30,11 +30,11 @@ const App: React.FC = () => {
           <Menu.Item title={'Quiz'} key={'1'} onClick={() => setTabOpen('1')}>
             Quiz
           </Menu.Item>
-          <Menu.Item title={'CheatSheet'} key={'2'} onClick={() => setTabOpen('2')}>
-            Glossário
+          <Menu.Item title={'Glossary'} key={'2'} onClick={() => setTabOpen('2')}>
+            Glossary
           </Menu.Item>
-          <Menu.Item title={'Teclado'} key={'3'} onClick={() => setTabOpen('3')}>
-            Teclado
+          <Menu.Item title={'Keyboard'} key={'3'} onClick={() => setTabOpen('3')}>
+            Keyboard
           </Menu.Item>
         </Menu>
       </Header>

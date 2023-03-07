@@ -5,62 +5,106 @@ import { Card, Col, Row, Tabs } from 'antd'
 import {
   HiraganaDictionary,
   HSmallKanaDictionary,
-  NVariantsDictionary,
+  HNVariantsDictionary,
+  HPunctuationDictionary,
 } from '../../dictionary/hiragana'
+import {
+  KatakanaDictionary,
+  KSmallKanaDictionary,
+  KNVariantsDictionary,
+  KPunctuationDictionary,
+} from '../../dictionary/katakana'
 import {
   H_SMALL_KANA_KEYBOARD,
   HIRAGANA_KEYBOARD,
-  N_VARIANT_KEYBOARD,
+  HIRAGANA_PUNCTUATION,
+  H_N_VARIANT_KEYBOARD,
+  K_SMALL_KANA_KEYBOARD,
+  KATAKANA_KEYBOARD,
+  KATAKANA_PUNCTUATION,
+  K_N_VARIANT_KEYBOARD,
 } from '../../utils/regex.util'
 import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
 
 const Keyboard = () => {
-  const [text, setText] = useState('')
+  const [hiraganaText, setHiraganaText] = useState('')
+  const [katakanaText, setKatakanaText] = useState('')
 
   const replaceSymbols = (dict: JapaneseSymbol[], romaji: string, text: string) => {
     return text.replace(romaji, String(dict.find((s) => s.romaji == romaji.toLowerCase())?.symbol))
   }
 
-  const onTextAreaInput = ({ target }: any) => {
+  const onHiraganaTextAreaInput = ({ target }: any) => {
     let t = target.value
     const hasSmallEquivalent = H_SMALL_KANA_KEYBOARD.exec(target.value)
     const hasSymbolEquivalent = HIRAGANA_KEYBOARD.exec(target.value)
-    const hasNVariantEquivalent = N_VARIANT_KEYBOARD.exec(target.value)
+    const hasNVariantEquivalent = H_N_VARIANT_KEYBOARD.exec(target.value)
+    const hasPunctuationEqv = HIRAGANA_PUNCTUATION.exec(target.value)
 
-    if (hasNVariantEquivalent) t = replaceSymbols(NVariantsDictionary, hasNVariantEquivalent[0], t)
+    if (hasNVariantEquivalent) t = replaceSymbols(HNVariantsDictionary, hasNVariantEquivalent[0], t)
     if (hasSmallEquivalent) t = replaceSymbols(HSmallKanaDictionary, hasSmallEquivalent[0], t)
+    if (hasPunctuationEqv) t = replaceSymbols(HPunctuationDictionary, hasPunctuationEqv[0], t)
     if (hasSymbolEquivalent) t = replaceSymbols(HiraganaDictionary, hasSymbolEquivalent[0], t)
 
-    setText(t)
+    setHiraganaText(t)
   }
 
-  const onButtonClick = (symbol: string) => {
-    setText(text + symbol)
+  const onHiraganaButtonClick = (symbol: string) => {
+    setHiraganaText(hiraganaText + symbol)
   }
 
-  const buildHiraganaKeyboard = () => {
+  const onKatakanaTextAreaInput = ({ target }: any) => {
+    let t = target.value
+    const hasSmallEquivalent = K_SMALL_KANA_KEYBOARD.exec(target.value)
+    const hasSymbolEquivalent = KATAKANA_KEYBOARD.exec(target.value)
+    const hasNVariantEquivalent = K_N_VARIANT_KEYBOARD.exec(target.value)
+    const hasPunctuationEqv = KATAKANA_PUNCTUATION.exec(target.value)
+
+    if (hasNVariantEquivalent) t = replaceSymbols(KNVariantsDictionary, hasNVariantEquivalent[0], t)
+    if (hasSmallEquivalent) t = replaceSymbols(KSmallKanaDictionary, hasSmallEquivalent[0], t)
+    if (hasPunctuationEqv) t = replaceSymbols(KPunctuationDictionary, hasPunctuationEqv[0], t)
+    if (hasSymbolEquivalent) t = replaceSymbols(KatakanaDictionary, hasSymbolEquivalent[0], t)
+
+    setKatakanaText(t)
+  }
+
+  const onKatakanaButtonClick = (symbol: string) => {
+    setKatakanaText(hiraganaText + symbol)
+  }
+
+  const buildKeyboard = (
+    language: string,
+    example: string,
+    dictionary: JapaneseSymbol[],
+    replaceFunction: ({ target }: any) => void,
+    clickFunction: (symbol: string) => void,
+    textAreaValue: string,
+  ) => {
     return (
       <>
-        <h1>Teclado Hiragana</h1>
+        <h1>Teclado {language}</h1>
         <h4 style={{ marginTop: '-16px', color: 'gray', fontStyle: 'italic' }}>
-          Digite o representante em romaji dos símbolos do Hiragana e ele será substitúido pelo
-          símbolo correto.
+          Type the romaji equivalent of the {language} symbols and it will be replaced by the
+          correct symbol.
         </h4>
         <h4 style={{ marginTop: '-16px', color: 'gray', fontStyle: 'italic' }}>
-          Digite o sinal de &quot;=&quot; antes, para os pequenos kana. Exemplo: =tsu =ya =yo | っ
-          ゃ ょ
+          Type the &quot;=&quot; sign before the romaji to type a small kana. Eg: {example}
+        </h4>
+        <h4 style={{ marginTop: '-16px', color: 'gray', fontStyle: 'italic' }}>
+          To type quotes please add a space after the quote for a opening one, and a space before
+          the quote for a closing one.
         </h4>
         <Row justify={'center'} style={{ marginBottom: '24px' }}>
           <Col flex={1}>
             <TextArea
               style={{ height: '180px', fontSize: '3em' }}
-              value={text}
-              onChange={onTextAreaInput}
+              value={textAreaValue}
+              onChange={replaceFunction}
             />
           </Col>
         </Row>
         <Row justify={'center'}>
-          {HiraganaDictionary.map((symbol) => {
+          {dictionary.map((symbol) => {
             return (
               <Card
                 style={{
@@ -70,7 +114,7 @@ const Keyboard = () => {
                   cursor: 'pointer',
                 }}
                 key={symbol.symbol}
-                onClick={() => onButtonClick(symbol.symbol)}
+                onClick={() => clickFunction(symbol.symbol)}
               >
                 <Row>
                   <span style={{ fontSize: '2em' }}>{symbol.symbol}</span>
@@ -93,7 +137,7 @@ const Keyboard = () => {
                   cursor: 'pointer',
                 }}
                 key={`${symbol}-1`}
-                onClick={() => onButtonClick(symbol)}
+                onClick={() => clickFunction(symbol)}
               >
                 <Row>
                   <span style={{ fontSize: '2em' }}>{symbol}</span>
@@ -112,18 +156,32 @@ const Keyboard = () => {
         {
           label: 'Hiragana',
           key: 'hiragana',
-          children: buildHiraganaKeyboard(),
+          children: buildKeyboard(
+            'Hiragana',
+            '=tsu =ya =yo | っ ゃ ょ',
+            HiraganaDictionary,
+            onHiraganaTextAreaInput,
+            onHiraganaButtonClick,
+            hiraganaText,
+          ),
         },
         {
           label: 'Katakana',
           key: 'katakana',
-          children: <span>Em breve</span>,
+          children: buildKeyboard(
+            'Katakana',
+            '=tsu =ya =yo | ッ ャ ョ',
+            KatakanaDictionary,
+            onKatakanaTextAreaInput,
+            onKatakanaButtonClick,
+            katakanaText,
+          ),
         },
-        {
-          label: 'Kanji',
-          key: 'kanji',
-          children: <span>Em breve</span>,
-        },
+        // {
+        //   label: 'Kanji',
+        //   key: 'kanji',
+        //   children: <span>Soon</span>,
+        // },
       ]}
     ></Tabs>
   )

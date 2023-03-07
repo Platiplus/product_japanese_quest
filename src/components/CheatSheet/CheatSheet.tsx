@@ -1,12 +1,14 @@
 import { Col, Row, Tabs } from 'antd'
 import { HiraganaDictionary } from '../../dictionary/hiragana'
 import { SwapOutlined } from '@ant-design/icons'
+import { JapaneseSymbol } from '../../common/interfaces/japaneseSymbol'
+import { KatakanaDictionary } from '../../dictionary/katakana'
 
 const CheatSheet = () => {
-  const buildHiraganaDictionary = () => {
+  const buildDictionary = (dictionary: JapaneseSymbol[]) => {
     return (
       <Row gutter={[64, 64]}>
-        {HiraganaDictionary.map((symbol) => {
+        {dictionary.map((symbol) => {
           return (
             <Col
               style={{ display: 'flex', justifyContent: 'center' }}
@@ -30,7 +32,12 @@ const CheatSheet = () => {
         {
           label: 'Hiragana',
           key: 'hiragana',
-          children: buildHiraganaDictionary(),
+          children: buildDictionary(HiraganaDictionary),
+        },
+        {
+          label: 'Katakana',
+          key: 'katakana',
+          children: buildDictionary(KatakanaDictionary),
         },
       ]}
     />

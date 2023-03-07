@@ -27,7 +27,7 @@ export const HiraganaDictionary: JapaneseSymbol[] = [
   { symbol: 'ぜ', romaji: 'ze' },
   { symbol: 'ぞ', romaji: 'zo' },
   { symbol: 'た', romaji: 'ta' },
-  { symbol: 'ち', romaji: 'ti' },
+  { symbol: 'ち', romaji: 'chi' },
   { symbol: 'つ', romaji: 'tsu' },
   { symbol: 'て', romaji: 'te' },
   { symbol: 'と', romaji: 'to' },
@@ -86,10 +86,18 @@ export const HSmallKanaDictionary: JapaneseSymbol[] = [
   { symbol: 'ょ', romaji: '=yo' },
 ]
 
-export const NVariantsDictionary: JapaneseSymbol[] = [
+export const HNVariantsDictionary: JapaneseSymbol[] = [
   { symbol: 'な', romaji: 'んa' },
   { symbol: 'に', romaji: 'んi' },
   { symbol: 'ぬ', romaji: 'んu' },
   { symbol: 'ね', romaji: 'んe' },
   { symbol: 'の', romaji: 'んo' },
+]
+
+export const HPunctuationDictionary: JapaneseSymbol[] = [
+  { symbol: 'ー', romaji: '-' },
+  { symbol: '。', romaji: '.' },
+  { symbol: '、', romaji: ',' },
+  { symbol: '「', romaji: '" ' },
+  { symbol: '」', romaji: ' "' },
 ]
