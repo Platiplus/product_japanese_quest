@@ -11,5 +11,5 @@ export const KATAKANA_KEYBOARD = new RegExp(
   'i',
 )
 export const K_SMALL_KANA_KEYBOARD = new RegExp('(=ya|=yu|=yo|=tsu|=a|=i|=u|=e|=o)', 'i')
-export const K_N_VARIANT_KEYBOARD = new RegExp('(んa|んi|んu|んe|んo)', 'i')
+export const K_N_VARIANT_KEYBOARD = new RegExp('(ンa|ンi|ンu|ンe|ンo)', 'i')
 export const KATAKANA_PUNCTUATION = new RegExp('(-|,|\\.|"\\s|\\s")', 'i')

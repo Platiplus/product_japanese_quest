@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'HonestMaria';
+  src: local('HonestMaria'), url(./assets/fonts/HonestMaria.ttf) format('truetype');
+}
+
 body {
   margin: 0;
   background-color: #F5F5F5;
@@ -11,4 +16,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.ant-input:hover {
+  border-color: #222831;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px rgba(34, 40, 49, .2);
+  box-shadow: 0 0 0 2px rgba(34, 40, 49, .2);
 }

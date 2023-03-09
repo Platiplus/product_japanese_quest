@@ -1,50 +1,27 @@
-import React, { useState } from 'react'
-import { Card, Layout, Menu } from 'antd'
-import { Quizes } from './components/Quizes/Quizes'
-import { CheatSheet } from './components/CheatSheet/CheatSheet'
-import { Keyboard } from './components/Keyboard/Keyboard'
+import { Header } from './components/Header'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HomePage } from './pages/HomePage'
+import { QuizSelectionPage } from './pages/QuizSelectionPage'
+import { KeyboardSelectionPage } from './pages/KeyboardSelectionPage'
+import { GlossarySelectionPage } from './pages/GlossarySelectionPage'
+import { QuizPage } from './pages/QuizPage'
+import { KeyboardPage } from './pages/KeyboardPage'
+import { GlossaryPage } from './pages/GlossaryPage'
 
-const { Header, Content } = Layout
-
-const App: React.FC = () => {
-  const [tabOpen, setTabOpen] = useState('1')
-
-  const renderTab = () => {
-    if (tabOpen === '1') {
-      return <Quizes />
-    }
-
-    if (tabOpen === '2') {
-      return <CheatSheet />
-    }
-
-    if (tabOpen === '3') {
-      return <Keyboard />
-    }
-  }
-
+export const App = () => {
   return (
-    <Layout>
-      <Header>
-        <Menu theme={'dark'} mode="horizontal" defaultSelectedKeys={[tabOpen]}>
-          <Menu.Item title={'Quiz'} key={'1'} onClick={() => setTabOpen('1')}>
-            Quiz
-          </Menu.Item>
-          <Menu.Item title={'Glossary'} key={'2'} onClick={() => setTabOpen('2')}>
-            Glossary
-          </Menu.Item>
-          <Menu.Item title={'Keyboard'} key={'3'} onClick={() => setTabOpen('3')}>
-            Keyboard
-          </Menu.Item>
-        </Menu>
-      </Header>
-      <Content style={{ padding: '48px 48px' }}>
-        <div className="site-layout-content" style={{ background: '#f5f5f5' }}>
-          <Card>{renderTab()}</Card>
-        </div>
-      </Content>
-    </Layout>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index path="/" element={<HomePage />} />
+          <Route path="/quiz" element={<QuizSelectionPage />} />
+          <Route path="/quiz/:alphabet" element={<QuizPage />} />
+          <Route path="/keyboard" element={<KeyboardSelectionPage />} />
+          <Route path="/keyboard/:alphabet" element={<KeyboardPage />} />
+          <Route path="/glossary" element={<GlossarySelectionPage />} />
+          <Route path="/glossary/:alphabet" element={<GlossaryPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
